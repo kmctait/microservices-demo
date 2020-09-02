@@ -1,0 +1,38 @@
+# Microservices Demo Project with Spring Boot
+
+This project demonstrates the use of microservices with Spring Boot to break down an application into independent components.
+
+Each component runs as a separate application, or microservice, and is registered using the Eureka discovery server. Communication between microservices is assured by RESTful web services.
+
+# Arithmetic Microservices
+
+In this example, the architecture is made up of two microservices performing simple arithmetic tasks, the addition and subtraction of two integers:
+
+- AdditionServer (configured to port localhost:2222)
+- SubtractionServer (configured to port localhost:3333)
+
+In order to find each other, the servers need to be discoverable and so are registered with the Eureka discovery server:
+
+- EurekaServer (configured to localhost:1111)
+
+Finally, a web server provides a simple user interface which sends requests to the Addition or Subtraction server via RESTful requests. On receipt of the responses, the result in JSON is returned to a web page:
+
+- WebServer (configured to localhost:4444)
+
+## Execution
+
+Each of the components are run either from your IDE as a Java application or using Maven:
+
+```mvn clean package
+
+Jar files are created in the `\target` directory of each project. 
+
+It is important to first run the EurekaServer, then the two arithmetic microservices (AdditionServer, SubtractionServer), then the WebServer.
+
+
+```
+java -jar EurekaServer-0.0.1-SNAPSHOT.jar
+java -jar AdditionServer-0.0.1-SNAPSHOT.jar
+java -jar SubtractionServer-0.0.1-SNAPSHOT.jar
+java -jar WebsServer-0.0.1-SNAPSHOT.jar
+```
